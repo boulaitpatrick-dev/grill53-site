@@ -1,0 +1,721 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Grill 53 Laval - Restaurant & carte</title>
+  <style>
+    :root {
+      --bg: #f7efe4;
+      --bg-soft: #fff8f1;
+      --panel: #fffdf9;
+      --text: #2a211b;
+      --muted: #6f6258;
+      --primary: #c62828;
+      --primary-dark: #981b1b;
+      --secondary: #ffb300;
+      --line: #ead9c8;
+      --shadow: 0 14px 30px rgba(92, 58, 33, 0.10);
+      --radius: 26px;
+      --radius-sm: 18px;
+      --max: 1150px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at top left, rgba(255,179,0,.18), transparent 26%),
+        radial-gradient(circle at top right, rgba(198,40,40,.10), transparent 22%),
+        linear-gradient(180deg, #f8f1e8 0%, #fffaf4 100%);
+    }
+
+    a { color: inherit; text-decoration: none; }
+    .container { width: min(var(--max), calc(100% - 32px)); margin: auto; }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(255,248,241,.88);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .nav {
+      min-height: 82px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 22px;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 900;
+      letter-spacing: .3px;
+      font-size: 1.1rem;
+    }
+
+    .logo-mark {
+      width: 52px;
+      height: 52px;
+      border-radius: 16px;
+      background: linear-gradient(135deg, var(--primary), #ff7043);
+      color: white;
+      display: grid;
+      place-items: center;
+      box-shadow: var(--shadow);
+      font-size: .95rem;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 18px;
+      margin: 0;
+      padding: 0;
+      flex-wrap: wrap;
+    }
+
+    nav a {
+      color: var(--muted);
+      font-weight: 700;
+      padding: 8px 0;
+      transition: .2s ease;
+    }
+
+    nav a:hover { color: var(--primary); }
+
+    .hero {
+      padding: 86px 0 58px;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.12fr .88fr;
+      gap: 28px;
+      align-items: center;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 9px 15px;
+      border-radius: 999px;
+      background: #fff3dd;
+      color: #9a5a00;
+      border: 1px solid #f2ddb0;
+      font-weight: 800;
+      font-size: .92rem;
+      margin-bottom: 16px;
+    }
+
+    h1, h2, h3 {
+      line-height: 1.08;
+      margin: 0 0 14px;
+    }
+
+    h1 { font-size: clamp(1.8rem, 3.5vw, 2.8rem); }
+    h2 { font-size: clamp(1.8rem, 3vw, 2.8rem); }
+    h3 { font-size: 1.22rem; }
+
+    .lead {
+      color: var(--muted);
+      font-size: 1.08rem;
+      max-width: 60ch;
+      line-height: 1.7;
+    }
+
+    .hero-card,
+    .card,
+    .menu-item,
+    .info-card,
+    .contact-card,
+    .order-banner {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+
+    .hero-card,
+    .card,
+    .info-card,
+    .contact-card,
+    .order-banner { padding: 24px; }
+
+    .hero-visual {
+      min-height: 390px;
+      border-radius: 30px;
+      border: 1px solid var(--line);
+      background:
+        linear-gradient(160deg, rgba(198,40,40,.92), rgba(255,112,67,.92)),
+        linear-gradient(180deg, #ffffff 0%, #fff4e8 100%);
+      position: relative;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+    }
+
+    .hero-visual::before {
+      content: "GRILL 53";
+      position: absolute;
+      left: 28px;
+      bottom: 28px;
+      color: rgba(255,255,255,.22);
+      font-size: clamp(2.4rem, 5vw, 4.6rem);
+      font-weight: 900;
+      letter-spacing: 2px;
+    }
+
+    .hero-visual::after {
+      content: "BURGERS • TACOS • SUR PLACE";
+      position: absolute;
+      top: 24px;
+      left: 24px;
+      background: rgba(255,255,255,.16);
+      color: white;
+      border: 1px solid rgba(255,255,255,.22);
+      padding: 10px 14px;
+      border-radius: 999px;
+      font-size: .85rem;
+      font-weight: 800;
+      backdrop-filter: blur(4px);
+    }
+
+    .mini-stats {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 14px;
+      margin-top: 20px;
+    }
+
+    .stat {
+      padding: 16px;
+      border-radius: 18px;
+      background: #fff8f0;
+      border: 1px solid var(--line);
+    }
+
+    .stat strong {
+      display: block;
+      color: var(--primary-dark);
+      margin-bottom: 4px;
+      font-size: 1.05rem;
+    }
+
+    section { padding: 74px 0; }
+    .section-head {
+      margin-bottom: 30px;
+      text-align: center;
+    }
+
+    .section-head p {
+      color: var(--muted);
+      max-width: 72ch;
+      margin: auto;
+      line-height: 1.7;
+    }
+
+    .grid-2, .grid-3, .menu-grid, .footer-grid {
+      display: grid;
+      gap: 22px;
+    }
+
+    .grid-2 { grid-template-columns: repeat(2, 1fr); }
+    .grid-3 { grid-template-columns: repeat(3, 1fr); }
+    .menu-grid { grid-template-columns: repeat(2, 1fr); }
+    .footer-grid { grid-template-columns: 1.2fr 1fr 1fr; }
+
+    .icon {
+      width: 56px;
+      height: 56px;
+      border-radius: 16px;
+      display: grid;
+      place-items: center;
+      background: linear-gradient(135deg, #fff1eb, #fff7dd);
+      border: 1px solid var(--line);
+      color: var(--primary);
+      font-size: 1.45rem;
+      margin-bottom: 12px;
+    }
+
+    .muted { color: var(--muted); }
+
+    .menu-item {
+      padding: 22px;
+      border-radius: 22px;
+      position: relative;
+      overflow: hidden;
+      transition: transform .18s ease, box-shadow .18s ease;
+    }
+
+    .menu-item::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 5px;
+      background: linear-gradient(90deg, var(--primary), var(--secondary));
+    }
+
+    .menu-item:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 18px 34px rgba(92,58,33,.15);
+    }
+
+    .menu-top {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      align-items: start;
+      margin-bottom: 8px;
+    }
+
+    .price {
+      color: var(--primary);
+      font-weight: 900;
+      white-space: nowrap;
+    }
+
+    .tag {
+      display: inline-block;
+      padding: 6px 11px;
+      border-radius: 999px;
+      background: #fff2de;
+      border: 1px solid #f0ddba;
+      color: #8b5400;
+      font-size: .82rem;
+      font-weight: 800;
+      margin-bottom: 10px;
+    }
+
+    .reco {
+      background: linear-gradient(180deg, #fffdfa 0%, #fff6ec 100%);
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 14px 22px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, var(--primary), #ff7043);
+      color: white;
+      font-weight: 800;
+      box-shadow: var(--shadow);
+      transition: .2s ease;
+    }
+
+    .btn:hover,
+    .route-btn:hover { transform: translateY(-2px); }
+
+    .order-banner {
+      display: grid;
+      grid-template-columns: 1.1fr .9fr;
+      gap: 24px;
+      align-items: center;
+      background:
+        radial-gradient(circle at top right, rgba(255,179,0,.16), transparent 25%),
+        linear-gradient(180deg, #fffaf5 0%, #fff4ea 100%);
+    }
+
+    .hours {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .hours li {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 12px 0;
+      border-bottom: 1px dashed var(--line);
+      color: var(--muted);
+    }
+
+    .info-list {
+      display: grid;
+      gap: 12px;
+      margin-top: 10px;
+    }
+
+    .info-chip {
+      padding: 14px 16px;
+      background: #fff8f1;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+    }
+
+    .contact-card {
+      max-width: 760px;
+      margin: auto;
+      text-align: left;
+    }
+
+    .route-btn {
+      display: inline-flex;
+      margin: 10px 0 4px;
+      padding: 12px 18px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, var(--primary), #ff7043);
+      color: white;
+      font-weight: 800;
+      box-shadow: var(--shadow);
+    }
+
+    footer {
+      margin-top: 26px;
+      padding: 34px 0;
+      border-top: 1px solid var(--line);
+      background: rgba(255,250,244,.95);
+    }
+
+    .footer-grid ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .footer-grid li {
+      margin-bottom: 10px;
+      color: var(--muted);
+    }
+
+    .footer-grid a:hover { color: var(--primary); }
+    .small { color: var(--muted); font-size: .94rem; }
+
+    @media (max-width: 900px) {
+      .hero-grid,
+      .grid-3,
+      .menu-grid,
+      .grid-2,
+      .order-banner,
+      .footer-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 720px) {
+      nav ul { display: none; }
+      .mini-stats { grid-template-columns: 1fr; }
+      .hero { padding-top: 56px; }
+      section { padding: 56px 0; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container nav">
+      <a href="#accueil" class="logo">
+        <span class="logo-mark">
+          <img src="logo.png" alt="Logo Grill 53" style="width:100%; height:100%; object-fit:cover; border-radius:12px; display:block; background:#000;">
+        </span>
+        <span>Grill 53 • Food & Street</span>
+      </a>
+      <nav>
+        <ul>
+          <li><a href="#a-propos">À propos</a></li>
+          <li><a href="#carte">Carte</a></li>
+          <li><a href="#recommandes">Suggestions</a></li>
+          <li><a href="#commande">Commander</a></li>
+          <li><a href="#horaires">Horaires</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" id="accueil">
+      <div class="container hero-grid">
+        <div>
+          <span class="badge">Restaurant rapide • Laval • Sur place • À emporter</span>
+          <h1>Découvrez Grill 53, votre spot gourmand à Laval</h1>
+          <p class="lead">
+            Ce site présente Grill 53 de manière simple et efficace avec une ambiance plus premium : carte, spécialités, commande en ligne, horaires et contact sur une seule page.
+          </p>
+          <div class="mini-stats">
+            <div class="stat"><strong>Adresse</strong><span class="muted">92 rue Bernard Le Pecq, Laval</span></div>
+            <div class="stat"><strong>Sur place</strong><span class="muted">places assises disponibles</span></div>
+            <div class="stat"><strong>Commande</strong><span class="muted">lien direct Deliveroo</span></div>
+            <div class="stat"><strong>Infos rapides</strong><span class="muted">contact et horaires visibles</span></div>
+          </div>
+        </div>
+        <div class="hero-card">
+          <div class="hero-visual" style="display:flex; align-items:center; justify-content:center; background:#000;">
+            <img src="logo.png" alt="Logo Grill 53" style="width:240px; height:240px; object-fit:cover; border-radius:50%; display:block;">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="a-propos">
+      <div class="container">
+        <div class="section-head">
+          <h2>À propos de Grill 53</h2>
+          <p>Un restaurant rapide à Laval avec une offre généreuse : burgers, tacos, sandwichs, bowls, assiettes, desserts et boissons.</p>
+        </div>
+        <div class="grid-3">
+          <article class="card">
+            <div class="icon">🍔</div>
+            <h3>Carte variée</h3>
+            <p class="muted">Des produits pensés pour les repas rapides, copieux et faciles à choisir.</p>
+          </article>
+          <article class="card">
+            <div class="icon">🪑</div>
+            <h3>Places assises</h3>
+            <p class="muted">Les clients peuvent manger sur place grâce aux places disponibles à l'intérieur.</p>
+          </article>
+          <article class="card">
+            <div class="icon">📦</div>
+            <h3>Sur place ou livraison</h3>
+            <p class="muted">Le site permet aussi d’envoyer directement les clients vers la commande en ligne.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="carte">
+      <div class="container">
+        <div class="section-head">
+          <h2>La carte</h2>
+          <p>Retrouvez nos plats avec les vrais prix.</p>
+        </div>
+
+        <div class="menu-grid">
+
+          <article class="menu-item">
+            <div class="menu-top"><h3>Boissons</h3><span class="price">2€ - 3,5€</span></div>
+            <p class="muted">Sodas, eau, boissons fraîches</p>
+          </article>
+
+          <article class="menu-item">
+            <div class="menu-top"><h3>Paninis</h3><span class="price">3,50€ - 7€</span></div>
+            <p class="muted">
+              Nutella : 3,50€<br>
+              Fromage : 5€<br>
+              Viande : 7€
+            </p>
+          </article>
+
+          <article class="menu-item">
+            <div class="menu-top"><h3>Assiettes</h3><span class="price">à partir de 9€</span></div>
+            <p class="muted">
+              1 viande : 9€<br>
+              2 viandes : 10,50€<br>
+              3 viandes : 12,50€
+            </p>
+          </article>
+
+          <article class="menu-item">
+            <div class="menu-top"><h3>Cheese Burger</h3><span class="price">6€</span></div>
+            <p class="muted">1 steak, cheddar, salade, tomate</p>
+          </article>
+
+          <article class="menu-item">
+            <div class="menu-top"><h3>Double Cheese</h3><span class="price">7€</span></div>
+            <p class="muted">2 steak, cheddar, salade, tomate</p>
+          </article>
+
+          <article class="menu-item">
+            <div class="menu-top"><h3>Grill Burger</h3><span class="price">7€</span></div>
+            <p class="muted">Steak, cheddar, oeuf, salade, tomate</p>
+          </article>
+
+          <article class="menu-item">
+            <div class="menu-top"><h3>Chicken Burger</h3><span class="price">6,50€</span></div>
+            <p class="muted">Poulet pané, cheddar, salade, tomate</p>
+          </article>
+
+          <article class="menu-item">
+            <div class="menu-top"><h3>Burger Végétarien</h3><span class="price">6,50€</span></div>
+            <p class="muted">Galette pomme de terre, cheddar, salade, tomate</p>
+          </article>
+
+          <article class="menu-item">
+            <div class="menu-top"><h3>Burger Fish</h3><span class="price">6,50€</span></div>
+            <p class="muted">Fish, cheddar, salade, tomate</p>
+          </article>
+
+          <article class="menu-item">
+            <div class="menu-top"><h3>Tacos</h3><span class="price">à partir de 7€</span></div>
+            <p class="muted">
+              1 viande : 7€ (menu +2€)<br>
+              2 viandes : 8€ (menu +2€)<br>
+              3 viandes : 10€ (menu +2€)
+            </p>
+            <p class="muted" style="margin-top:10px;">
+              <strong>Viandes disponibles :</strong><br>
+              kebab, steak, nuggets, cordon bleu, tenders,<br>
+              merguez, poulet curry, tandoori, kefta, escalope
+            </p>
+          </article>
+
+          <article class="menu-item">
+            <div class="menu-top"><h3>Kebab sandwich</h3><span class="price">6,50€ (menu 8,50€)</span></div>
+            <p class="muted" style="margin-top:10px;">
+              <strong>Sauces disponibles :</strong><br>
+              algérienne, barbecue, samouraï, ketchup,<br>
+              mayonnaise, blanche, burger, harissa, fromagère, biggy
+            </p>
+          </article>
+
+          
+
+          
+
+          
+
+          <article class="menu-item">
+            <div class="menu-top"><h3>Kefta sandwich</h3><span class="price">7,50€ (menu 9,50€)</span></div>
+            <p class="muted">Boulettes de viande hachée épicée, salade, tomate, sauce</p>
+          </article>
+
+          <article class="menu-item">
+            <div class="menu-top"><h3>Merguez sandwich</h3><span class="price">7€ (menu 9€)</span></div>
+            <p class="muted">Saucisses merguez, salade, tomate, sauce</p>
+          </article>
+
+          <article class="menu-item">
+            <div class="menu-top"><h3>Américain</h3><span class="price">7€ (menu 9€)</span></div>
+            <p class="muted">2 steaks, cheddar, frites, crudités</p>
+          </article>
+
+          
+
+          
+
+          
+
+          <article class="menu-item">
+            <div class="menu-top"><h3>Africain</h3><span class="price">7,50€</span></div>
+            <p class="muted">Émincé de poulet mariné, poivrons, cheddar</p>
+          </article>
+
+          <article class="menu-item">
+            <div class="menu-top"><h3>Menu enfant</h3><span class="price">6€</span></div>
+            <p class="muted">1 sandwich (au choix), frites et boisson</p>
+          </article>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    
+
+    <section id="commande">
+      <div class="container">
+        <div class="order-banner">
+          <div>
+            <div class="section-head" style="margin-bottom:12px;">
+              <h2>Commander en ligne</h2>
+              <p>Retrouvez Grill 53 directement sur Deliveroo pour commander rapidement.</p>
+            </div>
+            <a class="btn btn-primary" href="https://deliveroo.fr/fr/menu/laval/laval-centre-ville/grill-53" target="_blank">Commander sur Deliveroo</a>
+          </div>
+          <div class="card">
+            <h3>Commande rapide</h3>
+            <p class="muted">Un accès direct à la livraison pour simplifier le parcours client.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="horaires">
+      <div class="container grid-2">
+        <div class="info-card">
+          <h2>Horaires</h2>
+          <ul class="hours">
+            <li><span>Lundi</span><strong>11h30 - 14h30 / 18h00 - 01h00</strong></li>
+            <li><span>Mardi</span><strong>11h30 - 14h30 / 18h00 - 01h00</strong></li>
+            <li><span>Mercredi</span><strong>11h30 - 14h30 / 18h00 - 01h00</strong></li>
+            <li><span>Jeudi</span><strong>11h30 - 14h30 / 18h00 - 01h00</strong></li>
+            <li><span>Vendredi</span><strong>À vérifier</strong></li>
+            <li><span>Samedi</span><strong>À vérifier</strong></li>
+            <li><span>Dimanche</span><strong>À vérifier</strong></li>
+          </ul>
+          <p class="muted">Si certains horaires ne sont pas sûrs, il vaut mieux vérifier directement sur Instagram avec leur compte Grill 53.</p>
+        </div>
+        <div class="info-card">
+          <h2>Infos claires</h2>
+          <div class="info-list">
+            <div class="info-chip"><strong>Adresse :</strong> 92 rue Bernard Le Pecq, 53000 Laval</div>
+            <div class="info-chip"><strong>Téléphone :</strong> 07 45 05 31 47</div>
+            <div class="info-chip"><strong>Sur place :</strong> places assises disponibles</div>
+            <div class="info-chip"><strong>Type :</strong> restauration rapide</div>
+            <div class="info-chip"><strong>Carte :</strong> burgers, tacos, sandwichs, bowls, assiettes</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact">
+      <div class="container">
+        <div class="section-head">
+          <h2>Contact</h2>
+          <p>Toutes les informations essentielles, sans bloc vide à côté.</p>
+        </div>
+        <div class="contact-card">
+          <h3>Grill 53 Laval</h3>
+          <p class="muted"><strong>Adresse :</strong> <a href="https://maps.google.com/?q=92+rue+Bernard+Le+Pecq+53000+Laval" target="_blank">92 rue Bernard Le Pecq, 53000 Laval</a></p>
+          <a class="route-btn" href="https://www.google.com/maps/dir/?api=1&destination=92+rue+Bernard+Le+Pecq+53000+Laval" target="_blank">Voir l’itinéraire</a>
+          <p class="muted"><strong>Téléphone :</strong> <a href="tel:+33745053147">07 45 05 31 47</a></p>
+          <p class="muted"><strong>Email :</strong> <a href="mailto:grill53.laval@outlook.fr">grill53.laval@outlook.fr</a></p>
+          <p class="muted"><strong>Instagram :</strong> <a href="https://instagram.com/grill53438" target="_blank">@grill53438</a></p>
+          <p class="muted">Pour les horaires ou les informations récentes, il est conseillé de vérifier directement sur Instagram.</p>
+        </div>
+      </div>
+    </section>
+
+    
+
+  </main>
+
+  <footer>
+    <div class="container footer-grid">
+      <div>
+        <div class="logo" style="margin-bottom: 12px;">
+          <span class="logo-mark">
+            <img src="logo.png" alt="Logo Grill 53" style="width:100%; height:100%; object-fit:cover; border-radius:12px; background:#000;">
+          </span>
+          <span>Grill 53</span>
+        </div>
+        
+      </div>
+      <div>
+        <h3>Navigation</h3>
+        <ul>
+          <li><a href="#a-propos">À propos</a></li>
+          <li><a href="#carte">Carte</a></li>
+          <li><a href="#commande">Commander</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3>Infos</h3>
+        <ul>
+          <li><a href="#horaires">Horaires</a></li>
+          <li><a href="https://maps.google.com/?q=92+rue+Bernard+Le+Pecq+53000+Laval" target="_blank">Adresse</a></li>
+          <li><a href="tel:+33745053147">Téléphone</a></li>
+          <li><a href="mailto:grill53.laval@outlook.fr">Email</a></li>
+        </ul>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>
+
+
+
+
+
+
+
